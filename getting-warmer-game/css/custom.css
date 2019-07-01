@@ -16,22 +16,40 @@ html, body {
   background-color: none;
 }
 
-#modal {
+#modal-container {
   position: fixed;
   left: 0;
   top: 0;
   height: 100%;
   width: 100%;
-  display: none; /*flex*/
+  display: flex; /*flex*/
   align-items: center;
   justify-content: center;
 }
 
-#guide {
+#modal {
   flex: 0 0 auto;
   min-width: 400px;
   height: 200px;
-  border: 1px solid black;
+  background-color: rgb(163, 151, 151);
+  border-radius: 5px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+#modal > span {
+  margin: 20px auto;
+  display: block;
+}
+
+#modal > p {
+  flex: 1 1;
+}
+
+#modal > div > button {
+  display: inline-block;
+  margin-bottom: 20px;
 }
 
 #stats {

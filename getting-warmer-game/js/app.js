@@ -3,17 +3,18 @@ var app = {
   settings: {
     gameWidth: game.offsetWidth,
     gameHeight: game.offsetHeight,
+    paused: true,
   },
   utils: {},
   el: {
     px: document.getElementById("px"),
     py: document.getElementById("py"),
     ds: document.getElementById("ds"),
+    modal: document.getElementById("modal-container"),
   },
   startUp: () => {
     goal.style.top = "0px";
     goal.style.left = "0px";
-    app.utils.setGoal();
   }
 };
 
@@ -29,12 +30,20 @@ app.handlers.checkIfFound = event => {
   app.el.ds.value = distance;
   app.el.px.value = event.pageX;
   app.el.py.value = event.pageY;
-  app.utils.setBgColor(distance);
+  if (!app.settings.paused) app.utils.setBgColor(distance);
 }
 
 app.handlers.winnerPrompt = () => {
-  const restart = confirm("Congrats! Want to play again?");
-  if (restart) app.utils.setGoal();
+  document.getElementById("game").setAttribute("style", "background-color: rgb(128, 128, 128)");
+  app.el.modal.style.display = "flex";
+  app.settings.paused = true;
+}
+
+app.handlers.startGame = () => {
+  app.utils.setGoal();
+  app.settings.paused = false;
+  app.el.modal.style.display = "none";
+  document.querySelector("#modal > span").innerText = "Congrats, you found it! Want to play again?";
 }
 
 // UTILITIES
@@ -61,13 +70,14 @@ app.utils.calcDistance = (mouseX, mouseY) => {
 };
 
 app.utils.setBgColor = distance => {
-  document.getElementById('game').setAttribute('style', `background-color: rgba(255, 0, 0, ${14/distance})`);
+  document.getElementById("game").setAttribute("style", `background-color: rgba(255, 0, 0, ${14/distance})`);
 }
 
 // EVENT LISTENERS
-window.addEventListener('resize', app.handlers.onResize, false);
-document.addEventListener('mousemove', app.handlers.checkIfFound, false); // Move updates position
+window.addEventListener("resize", app.handlers.onResize, false);
+document.addEventListener("mousemove", app.handlers.checkIfFound, false); // Move updates position
 goal.onmouseover = app.handlers.winnerPrompt;
+start.onclick = app.handlers.startGame;
 
 // ON LOAD INITIALIZATION
 document.onload = app.startUp();
