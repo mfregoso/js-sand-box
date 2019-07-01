@@ -11,10 +11,12 @@ var app = {
     py: document.getElementById("py"),
     ds: document.getElementById("ds"),
     modal: document.getElementById("modal-container"),
+    gameBox: document.getElementById("game"),
   },
   startUp: () => {
     goal.style.top = "0px";
     goal.style.left = "0px";
+    app.settings.bgColor = getComputedStyle(document.body).backgroundColor;
   }
 };
 
@@ -34,16 +36,17 @@ app.handlers.checkIfFound = event => {
 }
 
 app.handlers.winnerPrompt = () => {
-  document.getElementById("game").setAttribute("style", "background-color: rgb(128, 128, 128)");
+  app.el.gameBox.setAttribute("style", "background-color: rgb(116, 34, 34)");
   app.el.modal.style.display = "flex";
   app.settings.paused = true;
 }
 
 app.handlers.startGame = () => {
+  app.el.gameBox.setAttribute("style", `background-color: ${app.settings.bgColor}`);
   app.utils.setGoal();
   app.settings.paused = false;
   app.el.modal.style.display = "none";
-  document.querySelector("#modal > span").innerText = "Congrats, you found it! Want to play again?";
+  document.querySelector("#modal > p").innerHTML = "<h3>Congrats, you found it! Want to play again?</h3>";
 }
 
 // UTILITIES
@@ -70,12 +73,12 @@ app.utils.calcDistance = (mouseX, mouseY) => {
 };
 
 app.utils.setBgColor = distance => {
-  document.getElementById("game").setAttribute("style", `background-color: rgba(255, 0, 0, ${14/distance})`);
+  app.el.gameBox.setAttribute("style", `background-color: rgba(255, 0, 0, ${14/distance})`);
 }
 
 // EVENT LISTENERS
 window.addEventListener("resize", app.handlers.onResize, false);
-document.addEventListener("mousemove", app.handlers.checkIfFound, false); // Move updates position
+document.addEventListener("mousemove", app.handlers.checkIfFound, false);
 goal.onmouseover = app.handlers.winnerPrompt;
 start.onclick = app.handlers.startGame;
 

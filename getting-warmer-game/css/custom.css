@@ -22,7 +22,7 @@ html, body {
   top: 0;
   height: 100%;
   width: 100%;
-  display: flex; /*flex*/
+  display: flex;
   align-items: center;
   justify-content: center;
 }
@@ -31,11 +31,13 @@ html, body {
   flex: 0 0 auto;
   min-width: 400px;
   height: 200px;
-  background-color: rgb(163, 151, 151);
+  background-color: rgb(156, 153, 153);
   border-radius: 5px;
   text-align: center;
   display: flex;
   flex-direction: column;
+  margin: 0 20px;
+  box-shadow: 0px 5px 20px -5px;
 }
 
 #modal > span {
@@ -45,11 +47,28 @@ html, body {
 
 #modal > p {
   flex: 1 1;
+  display: flex;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
 }
 
 #modal > div > button {
   display: inline-block;
-  margin-bottom: 20px;
+  margin: 20px 0;
+}
+
+#start {
+  border: 0;
+  border-radius: 5px;
+  padding: 7px 20px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(155, 27, 27);
+}
+
+#start:hover {
+  background-color: rgb(177, 57, 57);
 }
 
 #stats {
