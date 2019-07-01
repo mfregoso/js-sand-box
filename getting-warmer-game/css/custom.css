@@ -1,0 +1,20 @@
+html, body {
+  margin: 0 auto;
+  height: 100%;
+  background-color: rgb(128, 128, 128);
+}
+
+#game {
+  height: 100%;
+}
+
+#goal {
+  height: 20px;
+  width: 20px;
+  position: relative;
+  background-color: none;
+}
+
+#stats {
+  display: none;
+}
