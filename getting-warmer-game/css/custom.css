@@ -11,8 +11,27 @@ html, body {
 #goal {
   height: 20px;
   width: 20px;
+  border-radius: 10px;
   position: relative;
   background-color: none;
+}
+
+#modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  display: none; /*flex*/
+  align-items: center;
+  justify-content: center;
+}
+
+#guide {
+  flex: 0 0 auto;
+  min-width: 400px;
+  height: 200px;
+  border: 1px solid black;
 }
 
 #stats {

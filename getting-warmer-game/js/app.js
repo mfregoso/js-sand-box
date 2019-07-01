@@ -3,11 +3,18 @@ var app = {
   settings: {
     gameWidth: game.offsetWidth,
     gameHeight: game.offsetHeight,
+  },
+  utils: {},
+  el: {
     px: document.getElementById("px"),
     py: document.getElementById("py"),
     ds: document.getElementById("ds"),
   },
-  utils: {},
+  startUp: () => {
+    goal.style.top = "0px";
+    goal.style.left = "0px";
+    app.utils.setGoal();
+  }
 };
 
 // EVENT HANDLERS
@@ -19,9 +26,9 @@ app.handlers.onResize = () => {
 
 app.handlers.checkIfFound = event => {
   const distance = app.utils.calcDistance(event.pageX, event.pageY);
-  app.settings.ds.value = distance;
-  app.settings.px.value = event.pageX;
-  app.settings.py.value = event.pageY;
+  app.el.ds.value = distance;
+  app.el.px.value = event.pageX;
+  app.el.py.value = event.pageY;
   app.utils.setBgColor(distance);
 }
 
@@ -33,9 +40,9 @@ app.handlers.winnerPrompt = () => {
 // UTILITIES
 app.utils.checkGoalLocation = () => {
   const {gameWidth, gameHeight} = app.settings;
-  const goalLeft = parseInt(goal.style.left) + 30;
-  const goalTop = parseInt(goal.style.top) + 30;
-  if (goalLeft > gameWidth || goalTop > gameHeight) app.utils.setGoal();
+  const leftOffset = parseInt(goal.style.left) + 30;
+  const topOffset = parseInt(goal.style.top) + 30;
+  if (leftOffset > gameWidth || topOffset > gameHeight) app.utils.setGoal();
 }
 
 app.utils.setGoal = () => {
@@ -63,8 +70,4 @@ document.addEventListener('mousemove', app.handlers.checkIfFound, false); // Mov
 goal.onmouseover = app.handlers.winnerPrompt;
 
 // ON LOAD INITIALIZATION
-document.onload = (() => {
-  goal.style.top = "0px";
-  goal.style.left = "0px";
-  app.utils.setGoal();
-})();
+document.onload = app.startUp();
