@@ -37,6 +37,14 @@ app.handlers.checkIfFound = event => {
   }
 }
 
+app.handlers.checkTouch = touchEv => {
+  if (!app.settings.paused) {
+    for (let event of touchEv.changedTouches) {
+      app.handlers.checkIfFound(event);
+    }
+  }
+}
+
 app.handlers.winnerPrompt = () => {
   if (!app.settings.paused) {
     app.el.gameBox.setAttribute("style", "background-color: rgb(116, 34, 34)");
@@ -55,14 +63,14 @@ app.handlers.startGame = () => {
 
 // UTILITIES
 app.utils.checkGoalLocation = () => {
-  const {gameWidth, gameHeight} = app.settings;
+  const { gameWidth, gameHeight } = app.settings;
   const leftOffset = parseInt(goal.style.left) + 30;
   const topOffset = parseInt(goal.style.top) + 30;
   if (leftOffset > gameWidth || topOffset > gameHeight) app.utils.setGoal();
 }
 
 app.utils.setGoal = () => {
-  const {gameWidth, gameHeight} = app.settings;
+  const { gameWidth, gameHeight } = app.settings;
   const leftOffset = Math.floor(Math.random() * (gameWidth - 30));
   const topOffset = Math.floor(Math.random() * (gameHeight - 30));
   goal.style.left = leftOffset + "px";
@@ -77,14 +85,15 @@ app.utils.calcDistance = (mouseX, mouseY) => {
 };
 
 app.utils.setBgColor = distance => {
-  app.el.gameBox.setAttribute("style", `background-color: rgba(255, 0, 0, ${14/distance})`);
+  app.el.gameBox.setAttribute("style", `background-color: rgba(255, 0, 0, ${14 / distance})`);
 }
 
 // EVENT LISTENERS
-window.addEventListener("resize", app.handlers.onResize, false);
-document.addEventListener("mousemove", app.handlers.checkIfFound, false);
-document.addEventListener("ontouchmove", app.handlers.checkIfFound, false);
+window.addEventListener("resize", app.handlers.onResize);
+document.addEventListener("mousemove", app.handlers.checkIfFound);
+document.addEventListener("touchmove", app.handlers.checkTouch);
 goal.onmouseover = app.handlers.winnerPrompt;
+goal.ontouchstart = app.handlers.winnerPrompt;
 start.onclick = app.handlers.startGame;
 
 // ON LOAD INITIALIZATION
