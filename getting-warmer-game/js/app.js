@@ -28,17 +28,21 @@ app.handlers.onResize = () => {
 }
 
 app.handlers.checkIfFound = event => {
-  const distance = app.utils.calcDistance(event.pageX, event.pageY);
-  app.el.ds.value = distance;
-  app.el.px.value = event.pageX;
-  app.el.py.value = event.pageY;
-  if (!app.settings.paused) app.utils.setBgColor(distance);
+  if (!app.settings.paused) {
+    const distance = app.utils.calcDistance(event.pageX, event.pageY);
+    app.el.ds.value = distance;
+    app.el.px.value = event.pageX;
+    app.el.py.value = event.pageY;
+    app.utils.setBgColor(distance);
+  }
 }
 
 app.handlers.winnerPrompt = () => {
-  app.el.gameBox.setAttribute("style", "background-color: rgb(116, 34, 34)");
-  app.el.modal.style.display = "flex";
-  app.settings.paused = true;
+  if (!app.settings.paused) {
+    app.el.gameBox.setAttribute("style", "background-color: rgb(116, 34, 34)");
+    app.el.modal.style.display = "flex";
+    app.settings.paused = true;
+  }
 }
 
 app.handlers.startGame = () => {
