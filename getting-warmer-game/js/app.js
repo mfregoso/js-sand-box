@@ -83,6 +83,7 @@ app.utils.setBgColor = distance => {
 // EVENT LISTENERS
 window.addEventListener("resize", app.handlers.onResize, false);
 document.addEventListener("mousemove", app.handlers.checkIfFound, false);
+document.addEventListener("ontouchmove", app.handlers.checkIfFound, false);
 goal.onmouseover = app.handlers.winnerPrompt;
 start.onclick = app.handlers.startGame;
 

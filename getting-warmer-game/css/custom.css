@@ -29,7 +29,7 @@ html, body {
 
 #modal {
   flex: 0 0 auto;
-  min-width: 400px;
+  width: 310px;
   height: 200px;
   background-color: rgb(156, 153, 153);
   border-radius: 5px;
@@ -38,6 +38,24 @@ html, body {
   flex-direction: column;
   margin: 0 20px;
   box-shadow: 0px 5px 20px -5px;
+}
+
+@media (min-width: 360px) {
+  #modal {
+    width: 340px;
+  }
+}
+
+@media (min-width: 400px) {
+  #modal {
+    width: 380px;
+  }
+}
+
+@media (min-width: 550px) {
+  #modal {
+    width: 400px;
+  }
 }
 
 #modal > span {
